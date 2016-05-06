@@ -1,7 +1,3 @@
 ---
   rails::settings:
     package_name: 'rails'
-    package_provider: 'gem'
-    package_dependencies:
-      - 'ruby-devel'
-      - 'zlib-devel'

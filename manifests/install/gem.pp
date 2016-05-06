@@ -1,4 +1,4 @@
-class rails::profile::gem (
+class rails::install::gem (
 
   Variant[Boolean,String]  $ensure             = present,
 
@@ -19,9 +19,13 @@ class rails::profile::gem (
     }
   }
 
+  $default_settings = {
+    'package_provider' => 'gem',
+  }
+
   ::tp::install { 'rails':
     ensure           => $ensure,
-    settings_hash    => $::rails::module_settings,
+    settings_hash    => $::rails::module_settings + $default_settings,
     data_module      => $::rails::data_module,
     auto_conf        => false,
   }

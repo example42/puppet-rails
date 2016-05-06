@@ -1,8 +1,9 @@
 class rails (
 
-  String    $install_class    = '::rails::profile::gem',
-  String    $webserver_class  = '',
-  String    $config_class     = '',
+  String    $install_class    = '::rails::install::gem',
+  String    $proxy_class      = '',
+  String    $app_class        = '',
+  String    $db_class         = '',
   String    $deploy_class     = '',
 
   Hash      $options          = { },
@@ -26,15 +27,17 @@ class rails (
   if $install_class != '' {
     include $install_class
   }
-  if $webserver_class != '' {
-    include $webserver_class
+  if $proxy_class != '' {
+    include $proxy_class
   }
-  if $config_class != '' {
-    include $config_class
+  if $app_class != '' {
+    include $app_class
+  }
+  if $db_class != '' {
+    include $db_class
   }
   if $deploy_class != '' {
     include $deploy_class
   }
-
 
 }
