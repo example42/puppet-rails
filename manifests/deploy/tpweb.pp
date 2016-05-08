@@ -10,6 +10,8 @@ class rails::deploy::tpweb (
   Boolean                  $user_create         = true,
 ) {
 
+  include ::rails
+
   if $user_create {
     user { $user:
       ensure => $ensure,
@@ -23,11 +25,13 @@ class rails::deploy::tpweb (
   tp_install('git')
 
   tp::dir { 'rails::tpweb':
-    path    => $destination_path,
-    vcsrepo => git,
-    source  => $git_url,
-    require => Tp::Install['git'],
-    notify  => Exec['tpweb setup'],
+    path          => $destination_path,
+    vcsrepo       => git,
+    source        => $git_url,
+    require       => Tp::Install['git'],
+    notify        => Exec['tpweb setup'],
+    data_module   => $::rails::data_module,
+    settings_hash => $::rails::module_settings,
   }
   exec { 'tpweb setup':
     command => "${destination_path}/bin/setup",
