@@ -35,7 +35,7 @@ class rails::deploy::tpweb (
   }
   exec { 'tpweb setup':
     command => "${destination_path}/bin/setup",
-    user    => $exex_user,
+    user    => $exec_user,
     cwd     => $destination_path,
   }
 
