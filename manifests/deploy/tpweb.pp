@@ -8,6 +8,9 @@ class rails::deploy::tpweb (
 
   String                   $user                = 'tpweb',
   Boolean                  $user_create         = true,
+
+  Boolean                  $auto_prerequisites  = true,
+
 ) {
 
   include ::rails
@@ -22,13 +25,20 @@ class rails::deploy::tpweb (
     true  => $user,
     false => 'root',
   }
-  tp_install('git')
 
+  if $auto_prerequisites {
+    tp_install('git')
+  }
+
+  $tpdir_require = $auto_prerequisites ? {
+    true  => Tp::Install['git'],
+    false => undef,
+  }
   tp::dir { 'rails::tpweb':
     path          => $destination_path,
     vcsrepo       => git,
     source        => $git_url,
-    require       => Tp::Install['git'],
+    require       => $tpdir_require,
     notify        => Exec['tpweb setup'],
     data_module   => $::rails::data_module,
     settings_hash => $::rails::module_settings,
