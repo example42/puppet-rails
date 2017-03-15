@@ -24,19 +24,19 @@ class rails (
     $service_notify = undef
   }
 
-  if $install_class != '' {
+  if $install_class != '' {
     include $install_class
   }
-  if $proxy_class != '' {
+  if $proxy_class != '' {
     include $proxy_class
   }
-  if $app_class != '' {
+  if $app_class != '' {
     include $app_class
   }
-  if $db_class != '' {
+  if $db_class != '' {
     include $db_class
   }
-  if $deploy_class != '' {
+  if $deploy_class != '' {
     include $deploy_class
   }
 
